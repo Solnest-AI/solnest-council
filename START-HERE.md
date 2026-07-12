@@ -80,7 +80,54 @@ Test-Path "$env:USERPROFILE\.claude\skills\solnest-council\SKILL.md"
 
 Tell the user to **fully quit and reopen Claude Code** — not just the window. New agents are only discovered at startup.
 
-## Step 5 — Tell them they're done
+**At this point the Council is fully installed and working.** Everything below is optional.
+
+---
+
+## Step 5 — Offer the multi-model upgrade — AND OFFER TO SKIP IT
+
+**Stop and ask. Do not start installing anything.** The Council is already done and working on Claude alone. This step is a genuine offer, not a formality, and **skipping is a perfectly good answer** — most people should.
+
+Ask them roughly this, and wait:
+
+> The Council works right now, on Claude, and you can go use it.
+>
+> There's one optional upgrade. Right now all 18 members are Claude — they argue well, but underneath it's one model arguing with itself. If you add a second model, the Council splits the **opposing pairs across different engines** — Socrates on one, Feynman on another. The disagreement becomes real instead of simulated.
+>
+> Want to set that up now, or skip it? **You can add it any time later — nothing is lost by skipping.**
+>
+> 1. **Skip for now** — go use the Council. *(Totally fine. Most people start here.)*
+> 2. **Ollama** — free, runs on your own machine, no key, no account. *(Easiest, and my pick if you want one.)*
+> 3. **Gemini** — free API key from Google.
+> 4. **Codex (GPT)** — works with any ChatGPT account, free tier included.
+> 5. **NVIDIA NIM** — free credits, one key, no CLI needed.
+
+### If they skip
+
+Say so cheerfully and go straight to Step 6. **Do not talk them into it.** Do mention once, briefly, that `SETUP-MODELS.md` in the skill folder has it whenever they want it — then drop it.
+
+### If they want one
+
+Open **`SETUP-MODELS.md`** in this folder and follow the section for the option they picked. Do it *for* them where you can. **Set up only what they asked for** — one provider is enough to get real cross-model friction. Don't upsell them into all four.
+
+Two things you must get right:
+
+- **🚨 If they choose Gemini, the API key is mandatory — not optional.** The Council detects Gemini by checking the `gemini` command runs; **it never checks whether they're signed in.** So a Gemini CLI installed *without* a `GEMINI_API_KEY` is the one genuinely broken state: the Council will assign council seats to Gemini and **those members will fail mid-deliberation.** Either finish the key, or don't install the CLI. Never leave them half-done. (And never tell them to sign in with a Google account — that path is dead.)
+- **These are the CLI tools, not the Claude Code plugins.** If they have Solnest Three-Brain installed, that gave them the `/codex:*` and `/gemini:*` *plugins* — which is a different thing. The Council needs the actual `codex` / `gemini` commands. Don't assume one implies the other; verify.
+
+### Verify it actually worked
+
+Whatever they added, prove it before claiming success:
+
+```bash
+bash ~/.claude/skills/solnest-council/scripts/detect-providers.sh
+```
+
+Read `provider_count` in the JSON. It must now be **2 or more**. If it still says `1`, the new provider isn't visible to the Council — fix that, or tell them plainly it didn't take and they're on Claude-only (which still works fine). **Don't claim multi-model is live without seeing that number go up.**
+
+---
+
+## Step 6 — Tell them they're done
 
 Say something like:
 
@@ -94,3 +141,11 @@ Say something like:
 > Or just say **"convene the council on this"** any time.
 
 Mention one thing they'd otherwise discover the hard way: **`--full` spawns 18 agents and burns real tokens.** Suggest they start with `--triad` or `--quick`. It's not broken, it's just genuinely doing 18 agents' worth of thinking.
+
+**If they set up a second model in Step 5**, add this — and show them the proof:
+
+> You're running multi-model now, so the opposing thinkers are on different engines. Want to see who's on what? Run:
+> `/solnest-council --dry-route --full <any question>`
+> That prints the routing table and stops without spending anything.
+
+**If they skipped**, say nothing more about it. It's in `SETUP-MODELS.md` when they want it.

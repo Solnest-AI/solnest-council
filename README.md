@@ -100,13 +100,25 @@ They're installed as regular agents, so you can call one directly without conven
 
 ---
 
-## It gets smarter if you have other models
+## Optional: give it more than one brain
 
-Optional, and you can ignore it entirely. If you happen to have **Codex, Gemini, or Ollama** installed, the Council detects them automatically and **spreads opposing thinkers across different models** — so Socrates and Feynman literally aren't the same model agreeing with itself.
+**Skip this and the Council still works.** It runs on Claude alone, and that's how most people should start.
 
-If you only have Claude, it detects that and runs Claude-only. **Nothing to configure, nothing breaks.** This is a bonus, not a requirement.
+But here's the honest limitation of Claude-only: all 18 members are the same model wearing different hats. They argue — genuinely — but it's one mind playing every part.
 
-*(Pairs well with [Solnest Three-Brain](https://github.com/Solnest-AI/solnest-three-brain), which sets Codex and Gemini up for you.)*
+Add a second model and that changes. The Council takes each **polarity pair** and puts the two halves on **different engines**: Socrates on one, Feynman on another. Taleb and Karpathy on separate models. The disagreement stops being simulated.
+
+The installer offers to set this up and **offers to skip it** — no pressure either way. You can add it any time later. Cheapest path is **Ollama**: free, local, no key, no account.
+
+Full walkthrough: **[`SETUP-MODELS.md`](SETUP-MODELS.md)** — covers Ollama, Gemini, Codex, and NVIDIA NIM.
+
+To see who's running on what, without spending anything:
+
+```
+/solnest-council --dry-route --full <any question>
+```
+
+> ⚠️ **The Council uses the `codex` / `gemini` CLI tools — not the Claude Code plugins.** If you installed [Solnest Three-Brain](https://github.com/Solnest-AI/solnest-three-brain), that gave you the *plugins*, which is a different thing. Some overlap, but don't assume. `SETUP-MODELS.md` has a one-line check that tells you exactly what the Council can see.
 
 ---
 

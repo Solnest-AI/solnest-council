@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.0
+
+- **The installer now offers to set up extra models — and offers to skip.** Adding a second engine lets the Council split opposing thinkers (Socrates vs Feynman, Taleb vs Karpathy) across *different* models, so the disagreement is real instead of one model arguing with itself. Skipping is fine; the Council works on Claude alone.
+- New `SETUP-MODELS.md` — walkthroughs for Ollama (free, local, no key), Gemini, Codex, and NVIDIA NIM. Add one any time.
+- Documented a trap worth knowing: the Council detects Gemini by checking the `gemini` command runs, **not** whether you're signed in. A Gemini CLI installed without a `GEMINI_API_KEY` gets council seats assigned to it and fails mid-deliberation. Set the key or don't install the CLI.
+- Clarified that the Council uses the `codex`/`gemini` **CLI tools**, not the Claude Code plugins that Solnest Three-Brain installs.
+
 ## 1.0.0
 
 - First public release.
