@@ -31,7 +31,8 @@ chairman_defaults:
 
 # Explicit override for the Chairman across all sessions.
 # Leave null/commented to use the STEP 1.7 selection algorithm.
-# Ryan's choice (2026-06-02): Opus 4.8 chairs every council — strongest synthesizer on the box.
+# Default: Opus chairs every council — it's the strongest synthesizer available here,
+# and the Chairman's job is synthesis rather than argument.
 # Note: "opus" resolves to Opus 4.8 on CC v2.1.154+. Chairman shares the Anthropic
 # provider with any anthropic-routed panel members, but runs as a separate audited role.
 chairman:

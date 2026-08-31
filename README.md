@@ -22,7 +22,7 @@ Convene a panel of history's sharpest thinkers on any hard call — Socrates, Ar
 
 That last part is the whole point. When all 18 converge, you can move fast. When they split, that split *is* the answer you were missing.
 
-Built by [Ryan Lefebvre](https://instagram.com/Ryan_Le5) / **Solnest AI**. Free to use. **No API keys, no accounts, nothing to pay for** — it runs on the Claude you already have.
+Built by [Ryan Lefebvre](https://instagram.com/Ryan_Le5) / **Solnest AI**. Free to use. MIT licensed, see [LICENSE](LICENSE). **No API keys, no accounts, nothing to pay for** — it runs on the Claude you already have.
 
 ---
 

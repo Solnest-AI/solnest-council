@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.1
+
+- Added a `LICENSE` (MIT) — the README said "free to use" with no licence file to
+  back it, which leaves anyone reusing the Council guessing.
+- Reworded a personal operating note that had leaked into a shipped config file
+  (`configs/auto-route-defaults.yaml`) into a neutral rationale comment.
+
+
 ## 1.1.0
 
 - **The installer now offers to set up extra models — and offers to skip.** Adding a second engine lets the Council split opposing thinkers (Socrates vs Feynman, Taleb vs Karpathy) across *different* models, so the disagreement is real instead of one model arguing with itself. Skipping is fine; the Council works on Claude alone.
