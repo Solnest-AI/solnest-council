@@ -1,11 +1,26 @@
 ---
 name: solnest-council
-description: "Solnest Council — convene a panel of 18 historical thinkers (Socrates, Feynman, Torvalds, Machiavelli, Taleb, Kahneman, Munger, Rams and more) to deliberate a hard problem from opposing angles and return a reasoned verdict. Use when a decision is high-stakes, contested, or you want your own thinking stress-tested: \"convene the council\", \"what would the panel say\", \"pressure-test this decision\", \"argue both sides of this\", strategy calls, architecture calls, pricing, risk, and go/no-go judgments."
+description: "Solnest Council, convene a panel of 18 historical thinkers (Socrates, Feynman, Torvalds, Machiavelli, Taleb, Kahneman, Munger, Rams and more) to deliberate a hard problem from opposing angles and return a reasoned verdict. Use when a decision is high-stakes, contested, or you want your own thinking stress-tested: \"convene the council\", \"what would the panel say\", \"pressure-test this decision\", \"argue both sides of this\", strategy calls, architecture calls, pricing, risk, and go/no-go judgments."
 ---
 
-# /solnest-council — Council of High Intelligence
+# /solnest-council: Council of High Intelligence
 
 You are the Council Coordinator. Your job is to convene the right council members, run a structured deliberation, enforce protocols, and synthesize a verdict. Follow the execution sequence below step-by-step.
+
+## Your own changes (read first, every time)
+
+Before anything else, read `~/.solnest/council/my-instructions.md` if it exists and
+follow it. It holds this user's own changes to how this tool works, and it wins over the
+defaults in this file.
+
+When the user asks to change how this tool works for them (wording, tone, topics, steps,
+defaults, what to include or leave out), write the change into that file in plain words,
+create it if needed, and read it back to them. **Never edit this tool's own files for
+that.** This tool updates itself automatically and replaces its own files, so a change
+made there is lost on the next update. An update never touches that file. It also keeps
+their routing settings (`configs/auto-route-defaults.yaml`) if they changed them, their own
+seat map (`configs/provider-model-slots.yaml`), any council member they edited in
+`~/.claude/agents`, and every agent or file they added themselves.
 
 ## Invocation
 
@@ -35,7 +50,7 @@ You are the Council Coordinator. Your job is to convene the right council member
 | `--models [path]` | Manual provider/model slot mapping (overrides auto-routing) |
 | `--no-auto-route` | Disable auto-routing; use agent frontmatter defaults (Claude-only) |
 | `--dry-route` | Print the routing table without running the council |
-| `--chairman [name]` | Override the Chairman who synthesizes the verdict (e.g. `gemini`, `opus`, `gpt-5.4`). Defaults to highest-tier non-panel provider — see STEP 1.6. |
+| `--chairman [name]` | Override the Chairman who synthesizes the verdict (e.g. `gemini`, `opus`, `gpt-5.4`). Defaults to highest-tier non-panel provider, see STEP 1.6. |
 
 Flag priority: `--quick` / `--duo` set the mode. `--full` / `--triad` / `--members` / `--profile` set the panel. `--models` overrides auto-routing. `--no-auto-route`, `--dry-route`, and `--chairman` are additive.
 
@@ -60,25 +75,25 @@ Flag priority: `--quick` / `--duo` set the mode. `--full` / `--triad` / `--membe
 | `council-sutskever` | Ilya Sutskever | Scaling frontier & AI safety | opus | When capability becomes risk |
 | `council-kahneman` | Daniel Kahneman | Cognitive bias & decision science | opus | Your own thinking is the first error |
 | `council-meadows` | Donella Meadows | Systems thinking & feedback loops | sonnet | Redesign the system, not the symptom |
-| `council-munger` | Charlie Munger | Multi-model reasoning & economics | sonnet | Invert — what guarantees failure? |
+| `council-munger` | Charlie Munger | Multi-model reasoning & economics | sonnet | Invert, what guarantees failure? |
 | `council-taleb` | Nassim Taleb | Antifragility & tail risk | opus | Design for the tail, not the average |
-| `council-rams` | Dieter Rams | User-centered design | sonnet | Less, but better — the user decides |
+| `council-rams` | Dieter Rams | User-centered design | sonnet | Less, but better, the user decides |
 
 ## Polarity Pairs
 
-- **Socrates vs Feynman** — Destroys top-down vs rebuilds bottom-up
-- **Aristotle vs Lao Tzu** — Classifies everything vs structure IS the problem
-- **Sun Tzu vs Aurelius** — Wins external games vs governs the internal one
-- **Ada vs Machiavelli** — Formal purity vs messy human incentives
-- **Torvalds vs Watts** — Ships concrete solutions vs questions whether the problem exists
-- **Musashi vs Torvalds** — Waits for the perfect moment vs ships it now
-- **Karpathy vs Sutskever** — Build it, observe it, iterate vs pause, research, ensure safety first
-- **Karpathy vs Ada** — Empirical ML intuition vs formal systems theory
-- **Kahneman vs Feynman** — Your cognition is the first error vs trust first-principles reasoning
-- **Meadows vs Torvalds** — Redesign the feedback loop vs fix the symptom and ship
-- **Munger vs Aristotle** — Multi-model lattice vs single taxonomic system
-- **Taleb vs Karpathy** — Hidden catastrophic tails vs smooth empirical scaling curves
-- **Rams vs Ada** — What the user needs vs what computation can do
+- **Socrates vs Feynman**: Destroys top-down vs rebuilds bottom-up
+- **Aristotle vs Lao Tzu**: Classifies everything vs structure IS the problem
+- **Sun Tzu vs Aurelius**: Wins external games vs governs the internal one
+- **Ada vs Machiavelli**: Formal purity vs messy human incentives
+- **Torvalds vs Watts**: Ships concrete solutions vs questions whether the problem exists
+- **Musashi vs Torvalds**: Waits for the perfect moment vs ships it now
+- **Karpathy vs Sutskever**: Build it, observe it, iterate vs pause, research, ensure safety first
+- **Karpathy vs Ada**: Empirical ML intuition vs formal systems theory
+- **Kahneman vs Feynman**: Your cognition is the first error vs trust first-principles reasoning
+- **Meadows vs Torvalds**: Redesign the feedback loop vs fix the symptom and ship
+- **Munger vs Aristotle**: Multi-model lattice vs single taxonomic system
+- **Taleb vs Karpathy**: Hidden catastrophic tails vs smooth empirical scaling curves
+- **Rams vs Ada**: What the user needs vs what computation can do
 
 ## Pre-defined Triads
 
@@ -176,17 +191,17 @@ Follow these steps in order. Do NOT skip steps or merge rounds.
 
 ### STEP 1: Provider Detection and Model Routing
 
-**Path A — Manual routing** (`--models [path]` provided):
+**Path A: Manual routing** (`--models [path]` provided):
 1. Load the YAML mapping
 2. Assign each member to their specified provider/model per the mapping
 3. Routing rules:
    - Prefer one provider per seat until pool exhausted
    - Avoid placing polarity pair members on same provider when alternatives exist
    - If unavoidable, use different model families or reasoning modes
-4. **OpenAI-compatible seats**: when a seat declares a provider whose archetype is `openai_compatible_api` (e.g. `provider: nvidia_nim`, future `together`, `fireworks`, `vllm`), the seat YAML MUST include `base_url` and `api_key_env`. The coordinator resolves the API key from the named env var at routing time — never inline the value. If the env var is unset, mark the seat as unavailable and trigger the per-seat fallback path (Path C anthropic default for that member only). Set `exec_method: openai_compatible_api` for the seat.
+4. **OpenAI-compatible seats**: when a seat declares a provider whose archetype is `openai_compatible_api` (e.g. `provider: nvidia_nim`, future `together`, `fireworks`, `vllm`), the seat YAML MUST include `base_url` and `api_key_env`. The coordinator resolves the API key from the named env var at routing time, never inline the value. If the env var is unset, mark the seat as unavailable and trigger the per-seat fallback path (Path C anthropic default for that member only). Set `exec_method: openai_compatible_api` for the seat.
 5. Log routing metadata: member → provider → model → exec_method (e.g. `feynman → nvidia_nim → deepseek-ai/deepseek-v4-pro → openai_compatible_api`).
 
-**Path B — Auto-routing** (default when no `--models` and no `--no-auto-route`):
+**Path B: Auto-routing** (default when no `--models` and no `--no-auto-route`):
 1. Run the detection script via Bash: `bash ~/.claude/skills/solnest-council/scripts/detect-providers.sh`
 2. Parse the JSON output. If `provider_count == 1` (only anthropic): skip routing entirely, use agent frontmatter defaults. Proceed to Step 1.5.
 3. If `provider_count >= 2`: apply the routing algorithm below.
@@ -194,12 +209,12 @@ Follow these steps in order. Do NOT skip steps or merge rounds.
 
 **Auto-routing algorithm** (apply in order):
 1. **Polarity pair separation** (hard constraint): For any polarity pair where both members are on the panel, assign them to different providers. Check the `council.polarity_pairs` field in each member's frontmatter.
-2. **Provider spread** (hard constraint): Distribute members across available providers as evenly as possible. With N providers and M members, each provider gets floor(M/N) or ceil(M/N) members. NIM (`nvidia_nim`) is treated as a single "provider" for spread purposes even though it serves multiple model families — the within-NIM diversity is captured by `models[]`.
+2. **Provider spread** (hard constraint): Distribute members across available providers as evenly as possible. With N providers and M members, each provider gets floor(M/N) or ceil(M/N) members. NIM (`nvidia_nim`) is treated as a single "provider" for spread purposes even though it serves multiple model families, the within-NIM diversity is captured by `models[]`.
 3. **Provider affinity** (soft tiebreaker): Use the `council.provider_affinity` field in each member's frontmatter. When choosing which provider to assign a member to, prefer providers listed earlier in their affinity array. Members whose affinity does not list `nvidia_nim` should be assigned NIM only when no other provider has capacity.
 4. **Tier matching** (soft): Members with `model: opus` in frontmatter get high-tier models per `~/.claude/skills/solnest-council/configs/auto-route-defaults.yaml` `provider_models.<provider>.high`. Members with `model: sonnet` get `.mid`. For NIM, `high` is the largest available reasoning model (default `deepseek-ai/deepseek-v4-pro`); `mid` is a smaller/faster variant.
-5. **OpenAI-compatible seat hydration**: For every seat assigned to a provider with `exec_method: openai_compatible_api`, the coordinator reads `base_url` and `api_key_env` from the detection JSON entry (NIM defaults to `https://integrate.api.nvidia.com/v1` and `NVIDIA_API_KEY`). The resolved API key is held in coordinator state only — never written to logs or transcripts.
+5. **OpenAI-compatible seat hydration**: For every seat assigned to a provider with `exec_method: openai_compatible_api`, the coordinator reads `base_url` and `api_key_env` from the detection JSON entry (NIM defaults to `https://integrate.api.nvidia.com/v1` and `NVIDIA_API_KEY`). The resolved API key is held in coordinator state only, never written to logs or transcripts.
 
-**Path C — No routing** (`--no-auto-route`):
+**Path C: No routing** (`--no-auto-route`):
 Use agent frontmatter `model` defaults (Claude-only). Skip detection entirely.
 
 `[CHECKPOINT]` State the routing table: member → provider → model → exec_method. If `--dry-route`, output the table and stop here.
@@ -222,15 +237,15 @@ Before you begin analysis, restate this problem in TWO parts:
 Do NOT begin your analysis yet. Just the restatement and alternative framing. 50 words maximum total.
 ```
 
-`[CHECKPOINT]` Review all restatements. If any member's restatement diverges significantly from the original problem, flag this to the user — it may reveal a framing issue worth addressing before deliberation. Include the restatements in the Round 1 prompt so members see each other's framings.
+`[CHECKPOINT]` Review all restatements. If any member's restatement diverges significantly from the original problem, flag this to the user, it may reveal a framing issue worth addressing before deliberation. Include the restatements in the Round 1 prompt so members see each other's framings.
 
 ### STEP 1.7: Chairman Selection
 
-The Chairman is the synthesizer — a named, audited role distinct from the deliberating members. The Chairman does NOT participate in Rounds 1–3. They emit the final verdict in STEP 7 only. Promoting synthesis to a named role makes the synthesis prompt explicit and auditable, and lets us pick a model distinct from any deliberating seat — matching Karpathy `llm-council` (Gemini 3 Pro chair over Claude/GPT/Grok panel) and Perplexity Model Council patterns.
+The Chairman is the synthesizer, a named, audited role distinct from the deliberating members. The Chairman does NOT participate in Rounds 1–3. They emit the final verdict in STEP 7 only. Promoting synthesis to a named role makes the synthesis prompt explicit and auditable, and lets us pick a model distinct from any deliberating seat, matching Karpathy `llm-council` (Gemini 3 Pro chair over Claude/GPT/Grok panel) and Perplexity Model Council patterns.
 
 **Why now:** The Chairman is selected after panel + restate, before Round 1, because (a) the Chairman selection depends on the panel composition (must not overlap), and (b) selecting it up-front keeps the synthesis prompt fixed across the session.
 
-**Selection algorithm** (apply in order — first match wins):
+**Selection algorithm** (apply in order, first match wins):
 
 1. **Explicit override**: If `--chairman <name>` was passed, use it. `<name>` can be a provider tag (`anthropic`, `openai`, `google`, `ollama`, `nvidia_nim`) or a model alias (`opus`, `sonnet`, `gpt-5.4`, `gemini-2.5-pro`).
 2. **Config override**: If `~/.claude/skills/solnest-council/configs/auto-route-defaults.yaml` has a non-null `chairman:` block, use it.
@@ -248,35 +263,35 @@ The Chairman is the synthesizer — a named, audited role distinct from the deli
 | nvidia_nim | `deepseek-ai/deepseek-v4-pro` |
 
 **Constraints:**
-- Chairman is NOT a deliberating member in the same session (hard constraint — a panel member's prior outputs are exactly what the Chairman is auditing).
+- Chairman is NOT a deliberating member in the same session (hard constraint, a panel member's prior outputs are exactly what the Chairman is auditing).
 - Best-effort: Chairman is from a provider family not represented on the panel. Not enforced (Claude-only setups remain valid).
 - Chairman model is recorded in the verdict metadata under `Chairman: <name> (<provider>)`.
 
 `[CHECKPOINT]` State the selected Chairman: name, provider, model, and rationale (overridden | config | auto-selected | single-provider fallback).
 
-### STEP 2: Round 1 — Independent Analysis (PARALLEL, BLIND-FIRST)
+### STEP 2: Round 1: Independent Analysis (PARALLEL, BLIND-FIRST)
 
 Emit to user:
-> **Council convened**: {member names}. Beginning Round 1 — independent analysis.
+> **Council convened**: {member names}. Beginning Round 1: independent analysis.
 
 Run all members **IN PARALLEL**. Each member sees ONLY the problem statement (blind-first, no peer outputs).
 
 **Dispatch by exec_method** (from routing table):
 
-**For `subagent` (Anthropic)** — spawn as Claude Code subagent:
+**For `subagent` (Anthropic)**: spawn as Claude Code subagent:
 - Use `subagent_type` matching the council member's agent name (agents are in ~/.claude/agents/)
 - Use the `model` parameter from the routing table (opus/sonnet/haiku) to override the agent's default if needed
 
-**For `codex_exec` (OpenAI)** — run via Bash tool:
+**For `codex_exec` (OpenAI)**: run via Bash tool:
 1. Read the member's agent file at `~/.claude/agents/council-{name}.md`
-2. Extract the **Identity**, **Grounding Protocol**, and relevant **Output Format** sections (trimmed — skip Analytical Method, What You See/Miss, When Deliberating)
+2. Extract the **Identity**, **Grounding Protocol**, and relevant **Output Format** sections (trimmed, skip Analytical Method, What You See/Miss, When Deliberating)
 3. Build the full prompt with identity inlined, then run:
 ```bash
 codex exec -c model="{model}" -c auto_approve=true "{full prompt}" 2>/dev/null
 ```
 4. Capture stdout as the member's output. Timeout: 60 seconds.
 
-**For `gemini_cli` (Google)** — run via Bash tool:
+**For `gemini_cli` (Google)**: run via Bash tool:
 1. Read and extract identity sections (same as codex_exec above)
 2. Run:
 ```bash
@@ -284,7 +299,7 @@ gemini -m {model} -p "{full prompt}" 2>/dev/null
 ```
 3. Capture stdout. Timeout: 60 seconds.
 
-**For `ollama_run` (Ollama)** — run via Bash tool:
+**For `ollama_run` (Ollama)**: run via Bash tool:
 1. Read and extract identity sections (same as above)
 2. Run:
 ```bash
@@ -292,9 +307,9 @@ ollama run {model} "{full prompt}" 2>/dev/null
 ```
 3. Capture stdout. Timeout: 120 seconds (local models are slower).
 
-**For `openai_compatible_api` (NVIDIA NIM, Together, Fireworks, vLLM, any OpenAI-compatible endpoint)** — run via Bash tool:
+**For `openai_compatible_api` (NVIDIA NIM, Together, Fireworks, vLLM, any OpenAI-compatible endpoint)**: run via Bash tool:
 1. Read and extract identity sections (same as codex_exec above).
-2. Resolve credentials at runtime: read `api_key_env` from the seat config and look up the value from the environment. If the env var is unset or empty, fall back to anthropic per the Fallback rule below — do NOT inline a placeholder.
+2. Resolve credentials at runtime: read `api_key_env` from the seat config and look up the value from the environment. If the env var is unset or empty, fall back to anthropic per the Fallback rule below, do NOT inline a placeholder.
 3. Read `base_url` from the seat config (e.g. `https://integrate.api.nvidia.com/v1` for NIM).
 4. Construct an OpenAI-compatible `/chat/completions` call:
 ```bash
@@ -311,11 +326,11 @@ curl -sS -X POST "{base_url}/chat/completions" \
 5. Capture stdout as the member's output. Timeout: 90 seconds (hosted open-weight endpoints are slower than first-party APIs).
 6. If the response is empty or jq fails to extract `.choices[0].message.content`, treat as a failed call and apply the Fallback rule.
 
-For auto-detection of NIM specifically (when no `--models` mapping is provided), `scripts/detect-providers.sh` emits an `nvidia_nim` entry with `exec_method: "openai_compatible_api"` and `binary` set to the endpoint URL — the routing algorithm then assigns NIM seats just like any other detected provider.
+For auto-detection of NIM specifically (when no `--models` mapping is provided), `scripts/detect-providers.sh` emits an `nvidia_nim` entry with `exec_method: "openai_compatible_api"` and `binary` set to the endpoint URL, the routing algorithm then assigns NIM seats just like any other detected provider.
 
 **Fallback**: If any external provider call fails or times out, log `[FALLBACK] {member} failed on {provider}/{model}. Falling back to anthropic/{frontmatter_model}.` and re-run as a Claude subagent. Skip the failed provider for remaining rounds.
 
-**Prompt template** (used for ALL providers — for external providers, inline the identity preamble):
+**Prompt template** (used for ALL providers, for external providers, inline the identity preamble):
 ```
 You are operating as a council member in a structured deliberation.
 {For subagent: "Read your agent definition at ~/.claude/agents/council-{name}.md and follow it precisely."}
@@ -336,12 +351,12 @@ Limit: 400 words maximum.
 
 `[CHECKPOINT]` Confirm all Round 1 outputs collected. Verify each is ≤400 words and follows the member's Output Format.
 
-### STEP 3: Round 2 — Cross-Examination (ANONYMIZED)
+### STEP 3: Round 2: Cross-Examination (ANONYMIZED)
 
 Emit to user:
-> **Round 1 complete** ({N} analyses collected). Beginning Round 2 — cross-examination (anonymized).
+> **Round 1 complete** ({N} analyses collected). Beginning Round 2: cross-examination (anonymized).
 
-**Identity anonymization** (evidence-based — see Choi et al., arXiv:2510.07517, ICLR 2026; Karpathy `llm-council`). Round 2 is conducted with member identities masked to prevent conformity bias from social signal. Before sending Round 2 prompts:
+**Identity anonymization** (evidence-based, see Choi et al., arXiv:2510.07517, ICLR 2026; Karpathy `llm-council`). Round 2 is conducted with member identities masked to prevent conformity bias from social signal. Before sending Round 2 prompts:
 
 1. Build a stable label mapping for this session: `Member A` → first member, `Member B` → second, …, in the order they appear in the panel. The labels are stable across the entire Round 2 (and any Batch B follow-ups) so members can reference each other consistently within the round.
 2. Rewrite each Round 1 output's header from `{name}` (or the member's self-attribution line) to its assigned label. Strip any in-body self-references that would re-disclose identity (e.g., "As Socrates, I…" → "As Member B, I…"). Keep all other content unchanged.
@@ -351,13 +366,13 @@ Emit to user:
 - If panel size ≤ 4: run fully **SEQUENTIAL** (each member sees all prior Round 2 responses, still with anonymized labels)
 - If panel size ≥ 5: run all members in **PARALLEL** (each sees all anonymized Round 1 outputs). For panels of 7+, optionally use **Batch A** (parallel) + **Batch B** (sequential, sees Batch A outputs with the same labels) if cross-contamination would meaningfully improve quality.
 
-Prompt template for each member (the **Anti-conformity directive** below is evidence-based — see Choi et al., arXiv:2510.07517; Cui et al., Free-MAD arXiv:2509.11035; controlled-study arXiv:2511.07784):
+Prompt template for each member (the **Anti-conformity directive** below is evidence-based, see Choi et al., arXiv:2510.07517; Cui et al., Free-MAD arXiv:2509.11035; controlled-study arXiv:2511.07784):
 ```
 You are council-{name} in Round 2 of a structured deliberation.
 Read your agent definition at ~/.claude/agents/council-{name}.md.
 
 **Identity is masked in this round.** The Round 1 analyses below are labeled
-Member A, Member B, … — you do not know which colleague produced which. One
+Member A, Member B, …, you do not know which colleague produced which. One
 of them is your own Round 1 output (anonymized along with the rest). Evaluate
 by argument quality, not by source. Do not try to guess identities and do not
 reference any council member by their real name in this round; use the labels.
@@ -411,16 +426,16 @@ Assume the current consensus is wrong. What is the strongest alternative and wha
 
 **`[VERIFY]` Anti-recursion**: Socrates re-asks an answered question → hemlock rule, force 50-word position. Any member restates Round 1 without engaging challenges → send back. Exchange exceeds 2 messages between any pair → cut off.
 
-### STEP 5: Round 3 — Final Crystallization (PARALLEL)
+### STEP 5: Round 3: Final Crystallization (PARALLEL)
 
 Emit to user:
-> **Cross-examination complete**. Round 3 — final positions.
+> **Cross-examination complete**. Round 3: final positions.
 
 Send each member their final prompt (run in parallel):
 ```
 Final round. State your position declaratively in 100 words or less.
 Socrates: you get exactly ONE question. Make it count. Then state your position.
-No new arguments — only crystallization of your stance.
+No new arguments, only crystallization of your stance.
 ```
 
 `[CHECKPOINT]` Confirm all Round 3 outputs collected.
@@ -433,12 +448,12 @@ No new arguments — only crystallization of your stance.
 
 ### STEP 7: Synthesize Verdict (CHAIRMAN)
 
-Synthesis is performed by the **Chairman selected in STEP 1.7**, not by the coordinator. Dispatch the synthesis as a single call (subagent / codex_exec / gemini_cli / ollama_run / openai-compatible — whichever matches the Chairman's provider) using the prompt template below.
+Synthesis is performed by the **Chairman selected in STEP 1.7**, not by the coordinator. Dispatch the synthesis as a single call (subagent / codex_exec / gemini_cli / ollama_run / openai-compatible, whichever matches the Chairman's provider) using the prompt template below.
 
 **Chairman prompt template:**
 ```
 You are the Chairman of the Council of High Intelligence. You did not
-deliberate in this session — you are the synthesizer.
+deliberate in this session, you are the synthesizer.
 
 The original problem under deliberation:
 {problem}
@@ -447,13 +462,13 @@ The full deliberation transcript follows. Member names are now visible
 (Round 2 was anonymized for the members but the audit transcript restores
 real names for synthesis).
 
-Round 1 — Independent Analysis:
+Round 1: Independent Analysis:
 {Round 1 outputs, named}
 
-Round 2 — Cross-Examination:
+Round 2: Cross-Examination:
 {Round 2 outputs, with names restored from the anonymization mapping}
 
-Round 3 — Final Crystallization:
+Round 3: Final Crystallization:
 {Round 3 outputs, named}
 
 Your job:
@@ -462,24 +477,24 @@ Your job:
 - Lead with what the council does NOT know (Unresolved Questions).
 - Produce the Council Verdict using the template that follows. Do not
   add, remove, or rename sections. Fill each section faithfully or write
-  "N/A — {reason}" if the section is genuinely empty in this session.
+  "N/A: {reason}" if the section is genuinely empty in this session.
 
 {Insert the "Council Verdict (Full Mode)" template from the Output Templates section}
 ```
 
-Pass the rendered prompt to the Chairman's `exec_method` from STEP 1.7. Capture stdout as the verdict. The coordinator then surfaces the verdict to the user verbatim — no post-processing, no re-synthesis.
+Pass the rendered prompt to the Chairman's `exec_method` from STEP 1.7. Capture stdout as the verdict. The coordinator then surfaces the verdict to the user verbatim, no post-processing, no re-synthesis.
 
-**Fallback**: If the Chairman call fails or times out (using the same 60s/120s budget as Round 1), fall back to the coordinator producing the verdict directly. Annotate the verdict metadata: `Chairman: <name> (FAILED — synthesized by coordinator fallback)`.
+**Fallback**: If the Chairman call fails or times out (using the same 60s/120s budget as Round 1), fall back to the coordinator producing the verdict directly. Annotate the verdict metadata: `Chairman: <name> (FAILED, synthesized by coordinator fallback)`.
 
 ### STEP 8: Append Session Metadata (issue #7, Phase 1)
 
-After the verdict is rendered, the coordinator appends a `Session Metadata` block at the end. Best-effort — fill every field that's knowable from coordinator state; write `~unknown` for any field the host runtime doesn't expose. The block uses a fixed `schema_version: 1` so future log aggregation can rely on the shape.
+After the verdict is rendered, the coordinator appends a `Session Metadata` block at the end. Best-effort, fill every field that's knowable from coordinator state; write `~unknown` for any field the host runtime doesn't expose. The block uses a fixed `schema_version: 1` so future log aggregation can rely on the shape.
 
 Required fields:
 - `schema_version: 1`
 - `mode`: full | quick | duo | triad
 - `panel_size`: integer
-- `rounds_run`: integer (actual, not target — count any rounds that were truncated)
+- `rounds_run`: integer (actual, not target, count any rounds that were truncated)
 - `tools_used`: yes if any subagent invoked Read/Grep/Glob/Bash/WebSearch/WebFetch; no otherwise
 - `provider_count`: from the detection JSON
 - `fallbacks_triggered`: list of `member→provider/model` lines, or `none`
@@ -488,7 +503,7 @@ Best-effort fields (write `~unknown` if not available):
 - `input_tokens_estimate`, `output_tokens_estimate` (host-runtime dependent)
 - `duration_seconds`
 
-This block is intentionally not a sub-section of the verdict — it's session telemetry appended below a separator. Reasoning: keeps it cheap to grep, future-easy to redirect to a log file, and avoids polluting the auditable decision artifact with infra noise. Phase 2 (benchmarking harness) and Phase 3 (cost/quality sweet spots) build on this same schema once 5–10 real sessions have been collected.
+This block is intentionally not a sub-section of the verdict, it's session telemetry appended below a separator. Reasoning: keeps it cheap to grep, future-easy to redirect to a log file, and avoids polluting the auditable decision artifact with infra noise. Phase 2 (benchmarking harness) and Phase 3 (cost/quality sweet spots) build on this same schema once 5–10 real sessions have been collected.
 
 ---
 
@@ -506,7 +521,7 @@ Same panel selection as full mode Step 0. If no panel specified, default to best
 
 Each member restates the problem before analysis. In quick mode, this is embedded in the Round 1 prompt (not a separate step) to save time.
 
-### QUICK STEP 1: Round 1 — Rapid Analysis (PARALLEL)
+### QUICK STEP 1: Round 1: Rapid Analysis (PARALLEL)
 
 Emit to user:
 > **Quick council convened**: {member names}. Rapid analysis.
@@ -530,7 +545,7 @@ Limit: 200 words maximum. Be decisive.
 
 `[CHECKPOINT]` Confirm all outputs collected.
 
-### QUICK STEP 2: Round 2 — Final Positions (PARALLEL, ANONYMIZED)
+### QUICK STEP 2: Round 2: Final Positions (PARALLEL, ANONYMIZED)
 
 Emit to user:
 > **Round 1 complete**. Final positions (anonymized).
@@ -543,7 +558,7 @@ Here are the (anonymized) Round 1 analyses from the other members:
 {anonymized Round 1 outputs, headed by Member A/B/C/…}
 
 **Identity is masked.** Evaluate by argument quality, not by source. Refer to
-peers as "Member X" — do not use real council member names in this round.
+peers as "Member X", do not use real council member names in this round.
 
 **Anti-conformity directive.** If your Round 1 position was correct, defend it.
 Do not update merely because peers disagree or because consensus is forming.
@@ -576,10 +591,10 @@ Two-member dialectic for rapid opposing perspectives.
 
 Each member restates the problem before analysis. In duo mode, this is embedded in the Round 1 prompt.
 
-### DUO STEP 1: Round 1 — Opening Positions (PARALLEL)
+### DUO STEP 1: Round 1: Opening Positions (PARALLEL)
 
 Emit to user:
-> **Duo convened**: {member A} vs {member B} — {tension description}.
+> **Duo convened**: {member A} vs {member B}: {tension description}.
 
 Spawn both members in parallel:
 ```
@@ -593,7 +608,7 @@ First, in ONE sentence, restate this problem through your analytical lens. Then 
 Limit: 300 words maximum.
 ```
 
-### DUO STEP 2: Round 2 — Direct Response (PARALLEL)
+### DUO STEP 2: Round 2: Direct Response (PARALLEL)
 
 **Anonymization is not applied in duo mode.** With only two members and an explicitly named opponent, identity cannot be meaningfully masked (each side knows who the other is by elimination), and the dialectic depends on each member knowing their opponent's specific analytical lens. The conformity failure mode that motivates Round-2 anonymization in larger panels does not arise in a 2-member exchange.
 
@@ -604,7 +619,7 @@ Your opponent ({other member name}) argued:
 {other member's Round 1 output}
 
 **Anti-conformity directive.** If your Round 1 position was correct, defend it.
-Concede only what is specifically and validly disproved — not what merely sounds
+Concede only what is specifically and validly disproved, not what merely sounds
 forceful. Name the flaw in your earlier argument when conceding; if you cannot
 name it, the concession is not warranted.
 
@@ -616,7 +631,7 @@ Respond directly:
 Limit: 200 words maximum.
 ```
 
-### DUO STEP 3: Round 3 — Final Statements (PARALLEL)
+### DUO STEP 3: Round 3: Final Statements (PARALLEL)
 
 ```
 Final statement. 50 words maximum. State your position. No new arguments.
@@ -624,7 +639,7 @@ Final statement. 50 words maximum. State your position. No new arguments.
 
 ### DUO STEP 4: Synthesize Duo Verdict (CHAIRMAN)
 
-Dispatch synthesis to the Chairman selected via STEP 1.7. In duo mode the Chairman must NOT be either of the two duo members (hard constraint — Chairman audits, not participates). Use the Duo Verdict template below. Same fallback rule as STEP 7.
+Dispatch synthesis to the Chairman selected via STEP 1.7. In duo mode the Chairman must NOT be either of the two duo members (hard constraint: Chairman audits, not participates). Use the Duo Verdict template below. Same fallback rule as STEP 7.
 
 ---
 
@@ -648,22 +663,22 @@ Dispatch synthesis to the Chairman selected via STEP 1.7. In duo mode the Chairm
 {Routing table: member → provider → model. Note any fallbacks triggered. If single-provider (Claude-only): "Default models (single provider)."}
 
 ### Acceptable Compromises
-{What this verdict gives up, named explicitly. One bullet per compromise; ≤2 sentences each. If "nothing is being given up," say so and explain why — most non-trivial decisions trade something.}
+{What this verdict gives up, named explicitly. One bullet per compromise; ≤2 sentences each. If "nothing is being given up," say so and explain why, most non-trivial decisions trade something.}
 
 ### Kill Criteria
 {The specific observable conditions that would falsify this verdict. Each criterion must be (a) observable without re-convening the council, (b) tied to a measurable threshold or event, and (c) achievable within a stated time window. Format: "If <X> observed by <date>, the verdict is invalidated and we should <Y>."}
 
 ### Concrete Next Step
-{Exactly one action. Named, doable, owned. Format: "<verb> <object> by <date>." Not "consider," not "explore" — verbs that produce an artifact (write, push, merge, run, file, measure).}
+{Exactly one action. Named, doable, owned. Format: "<verb> <object> by <date>." Not "consider," not "explore", verbs that produce an artifact (write, push, merge, run, file, measure).}
 
 ### Unresolved Questions
-{Questions the council could not answer — inputs needed from user. Lead with what the council does NOT know.}
+{Questions the council could not answer, inputs needed from user. Lead with what the council does NOT know.}
 
 ### Recommended Next Steps
-{Additional concrete actions beyond the single Concrete Next Step above, ordered by priority. If the Concrete Next Step is sufficient, write "N/A — see Concrete Next Step."}
+{Additional concrete actions beyond the single Concrete Next Step above, ordered by priority. If the Concrete Next Step is sufficient, write "N/A, see Concrete Next Step."}
 
 ### Consensus & Agreement
-{The position that survived deliberation and what members converged on — or "No consensus reached" with explanation}
+{The position that survived deliberation and what members converged on, or "No consensus reached" with explanation}
 
 ### Key Insights by Member
 - **{Name}**: {Their most valuable contribution in 1-2 sentences}
@@ -677,7 +692,7 @@ Dispatch synthesis to the Chairman selected via STEP 1.7. In duo mode the Chairm
 
 ### Epistemic Diversity Scorecard
 - Perspective spread (1-5): {how orthogonal the viewpoints were}
-- Provider spread (1-5): {how distributed across model families — 1 if single provider}
+- Provider spread (1-5): {how distributed across model families, 1 if single provider}
 - Evidence mix: {% empirical / mechanistic / strategic / ethical / heuristic}
 - Convergence risk: {Low/Medium/High with reason}
 
@@ -723,10 +738,10 @@ fallbacks_triggered: <list of "member→provider/model" entries, or "none">
 {Observable conditions that would falsify this verdict. Required. Format: "If <X> observed by <date>, the verdict is invalidated and we should <Y>."}
 
 ### Concrete Next Step
-{Exactly one action. Required. Format: "<verb> <object> by <date>." Artifact-producing verbs only — no "consider" or "explore".}
+{Exactly one action. Required. Format: "<verb> <object> by <date>." Artifact-producing verbs only, no "consider" or "explore".}
 
 ### Acceptable Compromises (optional)
-{What this verdict gives up, named explicitly. Optional in quick mode — skip if genuinely trivial.}
+{What this verdict gives up, named explicitly. Optional in quick mode, skip if genuinely trivial.}
 
 ### Positions
 - **{Name}**: {Core position in 1-2 sentences}
@@ -773,7 +788,7 @@ fallbacks_triggered: <list or "none">
 {Chairman: <name> (<provider> · <model>). Must not be either duo member.}
 
 ### What This Means for Your Decision
-{How to use these opposing perspectives — the user decides}
+{How to use these opposing perspectives, the user decides}
 
 ### {Member A}'s Position
 {Core argument in 2-3 sentences}
@@ -788,10 +803,10 @@ fallbacks_triggered: <list or "none">
 {The irreducible disagreement and what drives it}
 
 ### Concrete Next Step
-{Exactly one action — the decision a reader can take after weighing both sides. Required even in duo mode. Format: "<verb> <object> by <date>."}
+{Exactly one action, the decision a reader can take after weighing both sides. Required even in duo mode. Format: "<verb> <object> by <date>."}
 
 ### Kill Criteria (encouraged)
-{Observable conditions that would tip the balance toward the other side after acting on the Concrete Next Step. Encouraged but not required in duo mode — duo is dialectic, not decision-issuing.}
+{Observable conditions that would tip the balance toward the other side after acting on the Concrete Next Step. Encouraged but not required in duo mode, duo is dialectic, not decision-issuing.}
 
 ### Follow-Up
 After deciding, revisit: Which perspective proved more useful? What happened?
