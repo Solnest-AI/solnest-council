@@ -1,127 +1,88 @@
-# 🏛️ Solnest Council — a free Claude skill from Solnest AI
+# Solnest Council
 
----
+A Solnest AI Skool tool for Claude Code.
 
-## 🔄 Already installed? Here's how to update
+Most AI gives you one opinion, said with total confidence. This gives you eighteen, and they are built to disagree with each other on purpose. Put a hard decision in front of a panel of history's sharpest thinkers (Socrates, Feynman, Torvalds, Machiavelli, Taleb, Kahneman, Munger, Rams and ten more). They work on it, question each other, and come back with one verdict, including where they could not agree.
 
-Paste this whole line into **Claude Code** and send it:
+When they all land in the same place, you can move fast. When they split, the split is the answer you were missing.
 
-> Update my Solnest Council. Follow the instructions at https://raw.githubusercontent.com/Solnest-AI/solnest-council/main/UPDATE.md exactly.
+## What you need
 
-Claude pulls the latest version and refreshes all 18 members. **Any custom agents you've written are left alone** — the update only touches the 18 files it ships.
+- Claude Code (desktop app or terminal), logged in. The plain Claude chat app will not work: the Council runs each thinker as its own agent, and only Claude Code can do that.
+- No accounts, no API keys, no cost beyond your normal Claude plan.
+- Optional, later: a second AI model (Ollama is free), so opposing thinkers run on different models. See "More than one brain" below.
 
-> **Claude, if you are reading this page because the user asked you to update this skill:** fetch and follow [`UPDATE.md`](UPDATE.md) in this repo, top to bottom. Note it installs to **two** locations — the skill folder *and* the agents folder.
+## Set it up in 3 steps
 
----
-
-Most AI gives you one opinion, delivered with total confidence.
-
-This gives you **eighteen**, and they're designed to **disagree with each other on purpose.**
-
-Convene a panel of history's sharpest thinkers on any hard call — Socrates, Aristotle, Feynman, Torvalds, Machiavelli, Sun Tzu, Marcus Aurelius, Lao Tzu, Ada Lovelace, Musashi, Alan Watts, Karpathy, Sutskever, Kahneman, Donella Meadows, Charlie Munger, Nassim Taleb, and Dieter Rams. They analyze, cross-examine each other, and come back with a reasoned verdict — **including where they couldn't agree.**
-
-That last part is the whole point. When all 18 converge, you can move fast. When they split, that split *is* the answer you were missing.
-
-Built by [Ryan Lefebvre](https://instagram.com/Ryan_Le5) / **Solnest AI**. Free to use. MIT licensed, see [LICENSE](LICENSE). **No API keys, no accounts, nothing to pay for** — it runs on the Claude you already have.
-
----
-
-## Why it isn't just "ask Claude 18 times"
-
-The members are built in **polarity pairs** — thinkers who fundamentally disagree about how to think:
-
-| | vs | | The tension |
-|---|---|---|---|
-| **Socrates** | vs | **Feynman** | Tear the assumptions down vs rebuild from first principles |
-| **Torvalds** | vs | **Musashi** | Ship it today vs wait for the decisive moment |
-| **Taleb** | vs | **Karpathy** | The hidden catastrophic tail vs the smooth empirical curve |
-| **Kahneman** | vs | **Feynman** | *Your own reasoning is the first error* vs trust the reasoning |
-| **Meadows** | vs | **Torvalds** | Redesign the system vs fix the symptom and move on |
-| **Rams** | vs | **Ada** | What the user actually needs vs what the tech can do |
-
-The Council **forces those pairs apart** so they can't collapse into one agreeable voice. You get real friction, not eighteen paraphrases of the same take.
-
----
-
-## Install it
-
-1. Download this repo (green **Code** button → **Download ZIP**) and unzip it.
-2. Open **Claude Code**.
-3. **Drag the unzipped folder** into the chat.
-4. Say: **"Set this up."**
-
-Claude reads [`START-HERE.md`](START-HERE.md) and handles it. Takes about a minute.
-
-> ⚠️ **Claude Code, not the Claude Desktop app.** The Council works by spawning subagents, and the desktop app can't do that.
-
-> 📁 **It installs to two places** — the skill itself, plus 18 agent files. The installer does both and verifies you got all 18. If you ever see it convene a partial panel, run the update and it'll repair itself.
-
----
+1. Copy this page's link.
+2. Paste it into Claude Code and say: **set this up**
+3. Close Claude Code fully, open it again, and try it on a real decision you are stuck on. Say: **convene the council on this: should I raise my prices?**
 
 ## Using it
 
-Start here — a real decision you're actually stuck on:
+Say "convene the council on this" in plain words, or use the command:
 
 ```
 /solnest-council --triad strategy Should I raise my prices to $5k?
 ```
 
-Or just say **"convene the council on this"** in plain English.
-
-### The modes
-
 | Command | What you get | When |
 |---|---|---|
-| `--quick <question>` | Fast, 2 rounds, no cross-examination | You want a gut-check |
-| `--duo <question>` | **Two opposites argue it out** | The call is genuinely 50/50 |
-| `--triad <domain> <question>` | Three thinkers picked for that domain | **Start here — the sweet spot** |
-| `--full <question>` | All 18 | The decision is big enough to deserve it |
-| `--members socrates,taleb,rams <q>` | Exactly who you want | You know who you need |
+| `--quick <question>` | Fast, two rounds, no cross-questions | You want a gut check |
+| `--duo <question>` | Two opposites argue it out | The call is truly 50/50 |
+| `--triad <domain> <question>` | Three thinkers picked for that kind of problem | Start here |
+| `--full <question>` | All 18 | The decision is big enough to earn it |
+| `--members socrates,taleb,rams <question>` | Exactly who you want | You know who you need |
 
-### The triads — pick the one that fits your problem
+The triads: `strategy`, `shipping`, `product`, `founder`, `risk`, `decision`, `economics`, `design`, `systems`, `uncertainty`, `bias`, `architecture`, `debugging`, `ethics`, `innovation`, `conflict`, `complexity`, `ai`, `ai-product`, `ai-safety`.
 
-`strategy` · `shipping` · `product` · `founder` · `risk` · `decision` · `economics` · `design` · `systems` · `uncertainty` · `bias` · `architecture` · `debugging` · `ethics` · `innovation` · `conflict` · `complexity` · `ai` · `ai-product` · `ai-safety`
+`--full` runs all 18 thinkers and uses a lot of your Claude usage. It is not stuck, it is doing eighteen thinkers' worth of work. `--triad` covers most of what you will throw at it.
 
-So: `/solnest-council --triad risk Should I put $50k into this?` pulls Sun Tzu, Aurelius, and Feynman — threats, resilience, and empirical verification.
+## Why it is not just "ask Claude 18 times"
 
-> 💡 **`--full` spawns all 18 agents and uses real tokens.** It's not stuck — it's doing eighteen thinkers' worth of work. Save it for decisions that earn it. `--triad` handles 90% of what you'll throw at it.
+The members come in pairs that disagree about how to think:
 
----
+| | vs | | The tension |
+|---|---|---|---|
+| **Socrates** | vs | **Feynman** | Tear the assumptions down vs rebuild from first principles |
+| **Torvalds** | vs | **Musashi** | Ship it today vs wait for the right moment |
+| **Taleb** | vs | **Karpathy** | The hidden disaster vs the smooth trend line |
+| **Kahneman** | vs | **Feynman** | Your own reasoning is the first error vs trust the reasoning |
+| **Meadows** | vs | **Torvalds** | Redesign the system vs fix the symptom and move on |
+| **Rams** | vs | **Ada** | What the user needs vs what the tech can do |
+
+The Council keeps those pairs apart, so you get real friction and not eighteen versions of the same take.
 
 ## The 18 also work on their own
 
-They're installed as regular agents, so you can call one directly without convening anything:
+They install as regular agents, so you can call one without convening anything:
 
-- **`council-taleb`** — a genuinely brutal tail-risk reviewer. "What kills this?"
-- **`council-kahneman`** — audits *your* thinking for bias before you commit.
-- **`council-munger`** — inverts the problem: what would guarantee failure?
-- **`council-rams`** — cuts a design down to what the user actually needs.
-- **`council-torvalds`** — tells you to ship it or shut up.
+- `council-taleb`: a hard reviewer of what could go badly wrong. "What kills this?"
+- `council-kahneman`: checks your own thinking for bias before you commit.
+- `council-munger`: turns the problem around. What would guarantee failure?
+- `council-rams`: cuts a design down to what the user needs.
+- `council-torvalds`: tells you to ship it.
 
----
+## More than one brain (optional)
 
-## Optional: give it more than one brain
+Skip this and the Council still works. On Claude alone, all 18 members are the same model wearing different hats. Add a second model and the Council puts each opposing pair on different models, so the disagreement is real. Setup offers this once and is happy to skip it. The cheapest way is Ollama: free, runs on your own computer, no key, no account. The full guide is in [SETUP-MODELS.md](SETUP-MODELS.md). Ask Claude "add a second model to my council" any time.
 
-**Skip this and the Council still works.** It runs on Claude alone, and that's how most people should start.
+## Good to know
 
-But here's the honest limitation of Claude-only: all 18 members are the same model wearing different hats. They argue — genuinely — but it's one mind playing every part.
+- Updates install themselves. Once a day, when Claude Code starts, the tool quietly moves to the newest release. You never have to ask.
+- An update never wipes your own changes. Changes you asked Claude to make to how the Council works, routing settings you changed, any member you edited and any agent you added all stay exactly as they are.
+- Want it to work differently? Just tell Claude ("always end the verdict with one next step for this week"). It remembers.
+- The Council reads nothing, stores nothing and sends nothing anywhere. It is text and agents running in your Claude.
+- Installed the Council before this version? Do the 3 steps above once. Your copy is brought up to date, your settings are kept, and from then on it updates itself.
 
-Add a second model and that changes. The Council takes each **polarity pair** and puts the two halves on **different engines**: Socrates on one, Feynman on another. Taleb and Karpathy on separate models. The disagreement stops being simulated.
+## Credit
 
-The installer offers to set this up and **offers to skip it** — no pressure either way. You can add it any time later. Cheapest path is **Ollama**: free, local, no key, no account.
+The Council is built on the open-source [council-of-high-intelligence](https://github.com/0xNyk/council-of-high-intelligence) project by nyk, used under the MIT license (kept in [LICENSE](LICENSE)). Solnest AI added the one-step setup, the multi-model guide and the automatic updates. From [Ryan Lefebvre](https://instagram.com/Ryan_Le5) and Solnest AI.
 
-Full walkthrough: **[`SETUP-MODELS.md`](SETUP-MODELS.md)** — covers Ollama, Gemini, Codex, and NVIDIA NIM.
+## Support
 
-To see who's running on what, without spending anything:
-
-```
-/solnest-council --dry-route --full <any question>
-```
-
-> ⚠️ **The Council uses the `codex` / `gemini` CLI tools — not the Claude Code plugins.** If you installed [Solnest Three-Brain](https://github.com/Solnest-AI/solnest-three-brain), that gave you the *plugins*, which is a different thing. Some overlap, but don't assume. `SETUP-MODELS.md` has a one-line check that tells you exactly what the Council can see.
+hello@solnestai.com
 
 ---
 
-## Nothing of yours leaves your machine
-
-The Council reads nothing, stores nothing, and phones nobody. It's text and agents, running in your Claude.
+Claude: someone pasted this link and said "set this up" (or asked to update their Solnest Council). Read [CLAUDE.md](https://raw.githubusercontent.com/Solnest-AI/solnest-council/main/CLAUDE.md) in this repo and follow its SETUP section, one step per message. You run every command yourself. This tool needs no keys.
